@@ -4,8 +4,23 @@ const cors = require("cors");
 const app = express();
 
 /* ================= MIDDLEWARES ================= */
-app.use(cors({ origin: "*" }));
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173", // Vite local
+      "http://localhost:3000",
+      process.env.FRONTEND_URL, // Render frontend
+    ].filter(Boolean),
+    credentials: true,
+  })
+);
+
 app.use(express.json());
+
+/* ================= HEALTH CHECK (RENDER) ================= */
+app.get("/api/health", (req, res) => {
+  res.status(200).json({ status: "ok" });
+});
 
 /* ================= PUBLIC ROUTES ================= */
 app.use("/api/auth", require("./routes/auth.routes"));
@@ -21,7 +36,7 @@ app.use("/api/admin", require("./routes/admin.category.routes"));
 app.use("/api/admin", require("./routes/admin.order.routes"));
 app.use("/api/admin", require("./routes/admin.user.routes"));
 
-/* ================= TEST ================= */
+/* ================= ROOT ================= */
 app.get("/", (req, res) => {
   res.send("API Ecommerce funcionando 🚀");
 });
