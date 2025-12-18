@@ -7,9 +7,9 @@ const app = express();
 app.use(
   cors({
     origin: [
-      "http://localhost:5173", // Vite local
+      "http://localhost:5173",
       "http://localhost:3000",
-      process.env.FRONTEND_URL, // Render frontend
+      process.env.FRONTEND_URL, // Render
     ].filter(Boolean),
     credentials: true,
   })
@@ -17,20 +17,18 @@ app.use(
 
 app.use(express.json());
 
-/* ================= HEALTH CHECK (RENDER) ================= */
+/* ================= HEALTH CHECK ================= */
 app.get("/api/health", (req, res) => {
-  res.status(200).json({ status: "ok" });
+  res.json({ status: "ok" });
 });
 
-/* ================= PUBLIC ROUTES ================= */
+/* ================= ROUTES ================= */
 app.use("/api/auth", require("./routes/auth.routes"));
 app.use("/api/products", require("./routes/product.routes"));
 app.use("/api/categories", require("./routes/category.routes"));
 app.use("/api/orders", require("./routes/order.routes"));
 app.use("/api/me", require("./routes/me.routes"));
 
-/* ================= ADMIN ROUTES ================= */
-console.log("🔌 Cargando rutas ADMIN...");
 app.use("/api/admin", require("./routes/admin.product.routes"));
 app.use("/api/admin", require("./routes/admin.category.routes"));
 app.use("/api/admin", require("./routes/admin.order.routes"));
@@ -43,10 +41,7 @@ app.get("/", (req, res) => {
 
 /* ================= 404 ================= */
 app.use((req, res) => {
-  res.status(404).json({
-    message: "Ruta no encontrada",
-    path: req.originalUrl,
-  });
+  res.status(404).json({ message: "Ruta no encontrada" });
 });
 
 module.exports = app;
