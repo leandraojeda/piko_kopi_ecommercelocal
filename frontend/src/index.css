@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+/* 🌸 PALETA ROSA – PIKO KOPI */
+:root {
+  --pink-primary: #c999af;
+  --pink-secondary: #e3b1c8;
+  --pink-soft: #fdcae1;
+  --pink-bg: #ffe5f0;
+  --white: #ffffff;
+}
+
+/* Fondo global */
+body {
+  background-color: var(--pink-bg);
+}
+/* OCULTAR SCROLLBAR REALMENTE (TODOS LOS NAVEGADORES) */
+.hide-scrollbar {
+  scrollbar-width: none;        /* Firefox */
+  -ms-overflow-style: none;     /* IE / Edge */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;                /* Chrome, Safari */
+}
